@@ -44,7 +44,7 @@
           <p><%= supplier.recruitment_percentage.to_i.floor%>% </p>
         <%end%>
         <%= div_for supplier, :class => "suppliers_id" do %>
-          <p><%= hidden_field_tag supplier.id.to_i%></p>
+          <p hidden="hidden"><%=  supplier.id%></p>
         <%end%>
 
       <% if @assitance == "it" %>
@@ -84,6 +84,9 @@
         </button>
       </div>
       <div class="modal-body">
+
+
+
 
       </div>
       <div class="modal-footer">
