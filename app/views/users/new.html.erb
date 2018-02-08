@@ -1,9 +1,13 @@
 <h1>Sign up!</h1>
 
 <%= form_for :user do |form| %>
-Name: <%= form.text_field :name %>
-Email: <%= form.text_field :email %>
-Password: <%= form.password_field :password %>
-Password Confirmation: <%= form.password_field :password_confirmation %>
+Name: <%= form.text_field :name, required: true%> <br>
+Email: <%= form.text_field :email, required: true %> <br>
+Telephone: <%= form.text_field :email, required: true %> <br>
+Company: <%= form.text_field :company, required: true %> <br>
+Company Number: <%= form.text_field :company_number, required: true %> <br>
+
+Password: <%= form.password_field :password, required: true %><br>
+Password Confirmation: <%= form.password_field :password_confirmation, required: true %><br>
 <%= form.submit "Sign Up" %>
 <% end %>

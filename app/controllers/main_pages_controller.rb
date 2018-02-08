@@ -32,21 +32,16 @@ class MainPagesController < ApplicationController
   end
 
   def confirm_order_and_email
-
     # creating contracts generated through strong params which is populated from tasks.js deepending on user selection
     Contract.create(main_params)
-
-
     # Email functions with corresponding user, supplier and admin - same email is sendt to all.
     @admin = "petter.fagerlund@gmail.com"
     @user = User.find(session[:user_id])
     @supplier = Supplier.find(params[:contracts][:supplier_id])
     @contract = Contract.last
-
     ConfirmationMailer.confirmation_email(@user).deliver_now
     ConfirmationMailer.admin_order_confirmation(@admin, @supplier, @user, @contract).deliver_now
     ConfirmationMailer.confirmation_email_supplier(@supplier, @user, @contract).deliver_now
-
   end
 
   def create
@@ -82,5 +77,4 @@ class MainPagesController < ApplicationController
         :type_of_service
       )
     end
-
 end
