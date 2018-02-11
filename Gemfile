@@ -10,9 +10,8 @@ gem 'rails-erd'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # postgresql
-gem 'pg', '~> 0.18.4' 
+gem 'pg', '~> 0.18.4'
 #for stlyling
 gem 'bootstrap', '~> 4.0.0'
 # Use Puma as the app server
