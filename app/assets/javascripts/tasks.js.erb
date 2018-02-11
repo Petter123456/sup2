@@ -111,8 +111,15 @@
     ///// THIS WORKS!!!!THIS WORKS!!!!!!!!
     function choose_Supplier(){$('.välj_leverator').click(function(event){
 
-
-
+      //If not logged in alert && redirect to login
+      if ($('.petterpetter') === true) {
+        console.log('inloggad')
+      } else {
+        alert('Please login to continue')
+      window.location.href = "<%= '/login' %>";
+      return false
+      }
+      //Triggers Modal with values
       $('.btn.btn-primary.test').trigger('click')
           var productarea = $('.productarea').val()
           var position = $('#position').val()
@@ -149,10 +156,14 @@
 
 
 
+
 $(document).on('ready', function(){
 
     showSuppliers();
 
     choose_Supplier();
+
+
+
 
 });
