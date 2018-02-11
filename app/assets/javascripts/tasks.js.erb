@@ -111,14 +111,25 @@
     ///// THIS WORKS!!!!THIS WORKS!!!!!!!!
     function choose_Supplier(){$('.välj_leverator').click(function(event){
 
-      //If not logged in alert && redirect to login
-      if ($('.petterpetter') === true) {
-        console.log('inloggad')
-      } else {
+      // If not logged in alert && redirect to login
+      if ($('.header a').text() === "LoginSign-upBack to main page"){
+
         alert('Please login to continue')
-      window.location.href = "<%= '/login' %>";
-      return false
+                window.location.href = "<%= '/login' %>";
+                return false
       }
+
+
+
+//
+//
+//       if (session_val === false) {
+//         alert('Please login to continue')
+//         window.location.href = "<%= '/login' %>";
+//         return false
+//       } else {
+//       console.log('inloggad')
+//       }
       //Triggers Modal with values
       $('.btn.btn-primary.test').trigger('click')
           var productarea = $('.productarea').val()
