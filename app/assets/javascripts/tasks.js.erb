@@ -141,13 +141,13 @@
 
         // SENDING DATA TO BACKEND
         $('.btn.btn-secondary.confirm_order').click(function(){
-          alert('Thank you for your order, please check your email for the confirmation')
 
           $.ajax({
             type: "GET",
             url: "/confirm_order_and_email",
             data: {contracts: { productarea: productarea, position: position, start_date: start_date, end_date: end_date, city: city, percentage: percentage, experience: experience, salary: salary, supplier_name: supplier_name, supplier_id: supplier_id, supplier_price: supplier_price, type_of_service: type_of_service}}
           });
+          alert('Thank you for your order, please check your email for the confirmation')
           window.location.href = "<%= '/page1' %>";
         });
       });
