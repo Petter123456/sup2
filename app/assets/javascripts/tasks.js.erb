@@ -110,27 +110,13 @@
     };
     ///// THIS WORKS!!!!THIS WORKS!!!!!!!!
     function choose_Supplier(){$('.välj_leverator').click(function(event){
-
       // If not logged in alert && redirect to login
       if ($('.header a').text() === "LoginSign-upBack to main page"){
-
         alert('Please login to continue')
-                window.location.href = "<%= '/login' %>";
-                return false
-      }
-
-
-
-//
-//
-//       if (session_val === false) {
-//         alert('Please login to continue')
-//         window.location.href = "<%= '/login' %>";
-//         return false
-//       } else {
-//       console.log('inloggad')
-//       }
-      //Triggers Modal with values
+          window.location.href = "<%= '/login' %>";
+          return false
+      };
+      //triggers modal
       $('.btn.btn-primary.test').trigger('click')
           var productarea = $('.productarea').val()
           var position = $('#position').val()
@@ -155,11 +141,14 @@
 
         // SENDING DATA TO BACKEND
         $('.btn.btn-secondary.confirm_order').click(function(){
+          alert('Thank you for your order, please check your email for the confirmation')
+
           $.ajax({
             type: "GET",
             url: "/confirm_order_and_email",
             data: {contracts: { productarea: productarea, position: position, start_date: start_date, end_date: end_date, city: city, percentage: percentage, experience: experience, salary: salary, supplier_name: supplier_name, supplier_id: supplier_id, supplier_price: supplier_price, type_of_service: type_of_service}}
           });
+          window.location.href = "<%= '/page1' %>";
         });
       });
     };

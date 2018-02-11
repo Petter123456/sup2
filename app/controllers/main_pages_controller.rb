@@ -33,9 +33,7 @@ class MainPagesController < ApplicationController
 
   def confirm_order_and_email
 
-    if session[:user_id] == nil
-      render '/login'
-    end
+
 
     contract = Contract.new(main_params)
     # creating contracts generated through strong params which is populated from tasks.js deepending on user selection
@@ -50,7 +48,6 @@ class MainPagesController < ApplicationController
       ConfirmationMailer.admin_order_confirmation(@admin, @supplier, @user, @contract).deliver_now
       ConfirmationMailer.confirmation_email_supplier(@supplier, @user, @contract).deliver_now
 
-      flash[:notice] = "Post successfully created"
       render page1_path
     end
   end
