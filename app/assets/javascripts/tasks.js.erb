@@ -127,32 +127,35 @@
           var experience = $(".experience").val()
           var salary = $("#salary").val()
 
+
+
           var supplier = event.target.closest('.supplier_div');
           var supplier_name = supplier.children[0].childNodes[1].textContent;
           var supplier_id = supplier.children[3].childNodes[1].textContent;
           var supplier_price = supplier.children[4].childNodes[1].textContent;
+          var supplier_recruitment = supplier.children[2].childNodes[1].textContent;
+
 
           var type_of_service = $('.rent_or_recruit').val()
 
-        var string = "<h1 id='productarea'>" + productarea +"</h1>" + "<h1 id='position'>" + position +"</h1>" + "<h1 id='start_date'>" + start_date + "</h1>" + "<h1 id='end_date'>" + end_date + "</h1>" + "<h1 id='city'>" + city + "</h1>" + "<h1 id='percentage'>" + percentage + "</h1>" + "<h1 id='city'>" + experience + "</h1>" + "<h1 id='salary'>" + salary + "</h1>"+ "<h1 id='supplier_name'>" + supplier_name + "</h1>"+ "<h1 id='supplier_id' hidden='hidden'>" + supplier_id + "</h1>"+ "<h1 id='supplier_price'>" + supplier_price + "</h1>";
+        var string =  "<p id='productarea'> Område: " + productarea +"</p>" + "<p id='position'> Tjänst: " + position +"</p>" + "<p id='start_date'> Start datum: " + start_date + "</p>" + "<p id='end_date'> Slut Datum:" + end_date + "</p>" + "<p id='city'> Stad:" + city + "</p>" + "<p id='percentage'> Ställningsprocent: " + percentage + "</p>" + "<p id='city'> Erfarenhet: " + experience + "</p>" +  "<p id='supplier_price'> Timpris vid bemanning: " + supplier_price +"</p>"+ "<p id='supplier_recruitment'> Totalpris vid rekrytering: " + supplier_recruitment +"</p>" + "<p id='supplier_name'> Leverantör: " + supplier_name + "</p>"+ "<p hidden id='supplier_id'>" + parseInt(supplier_id); + "</p>"+ "<p id='supplier_price'>" + supplier_price + "</p>";
 
         $('.modal-body').html(string);
         event.preventDefault();
 
-        // SENDING DATA TO BACKEND
+        // SENDING DATA TO BACKEND VIA AJAXCALL
         $('.btn.btn-secondary.confirm_order').click(function(){
 
           $.ajax({
             type: "GET",
             url: "/confirm_order_and_email",
-            data: {contracts: { productarea: productarea, position: position, start_date: start_date, end_date: end_date, city: city, percentage: percentage, experience: experience, salary: salary, supplier_name: supplier_name, supplier_id: supplier_id, supplier_price: supplier_price, type_of_service: type_of_service}}
+            data: {contracts: { productarea: productarea, position: position, start_date: start_date, end_date: end_date, city: city, percentage: percentage, experience: experience, salary: salary, supplier_name: supplier_name, supplier_id: supplier_id, supplier_price: supplier_price, productarea: productarea, type_of_service: type_of_service}}
           });
           alert('Thank you for your order, please check your email for the confirmation')
           window.location.href = "<%= '/page1' %>";
         });
       });
     };
-
 
 
 
@@ -165,5 +168,48 @@ $(document).on('ready', function(){
 
 
 
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+// function localStor(){
+//
+//
+//   // document.getElementById("productarea").addEventListener("click", function(){
+//   //   localStorage.setItem("productarea10", $('.productarea').val());
+//   //
+//   //    console.log(localStorage.getItem("productarea10"));
+//   //
+//   //
+//   //
+//   //
+//   // });
+//
+//   // $('.productarea') = localStorage.getItem("productarea10");
+//
+//
+//
+// addEventListener('DOMContentLoaded', function(){
+//   document.querySelector('select[name="assitance"]').onchange=changeEventHandler;},false);
+//
+//
+// function changeEventHandler(event){
+//  localStorage.setItem("productarea10", $('.productarea').val());
+// };
+//
+//
+// };

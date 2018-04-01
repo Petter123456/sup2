@@ -1,9 +1,11 @@
 <p style="display: none;" class="petterpetter"><%= session[:user_id] ? 'true' : 'false'%></p>
+
+
   <%= form_tag '/page1', method: :get do %>
   Area of Assistance:
-  <select class="productarea" name="assitance">
+  <select class="productarea" name="assitance" id="productarea" >
     <% @product_areas.each do |productarea| %>
-      <option class="opts"> <%=productarea%></option>
+      <option class="opts" id="opts"> <%=productarea %></option>
     <%end%></select><br>
 
     Position:<%= text_field_tag :position, params[:position], :placeholder => 'Enter position title', class: 'position', :required => true%></br>
@@ -21,19 +23,29 @@
 
   </select></br>
 
+
   Minimum level of Experiance: <select class="experience">
   <% @level_of_experiance.each do |experiance| %>
     <option><%=experiance%></option>
   <%end%></select></br>
   Monthly Salary:<%= text_field_tag :salary, params[:salary], class: 'salary', readonly: params["salary"] ? true : false %>
   <!-- subitm button -->
-  <button class="show">See Suppliers</button></br>
+  <button class="show" id="show">Jämför Leverantörer</button></br>
   <!-- Get right supplier deepending in city and product area -->
 
   <% if @suppliers.present? %>
   <div class="wrapper">
     <% @suppliers.each do |supplier| %>
     <div class='supplier_div'>
+      <table>
+        <tr>
+          <th>Leverantör</th>
+          <th>Stad</th>
+          <th>Rekryterings honorar</th>
+          <th>Bemannings pris per ttimme</th>
+        </tr>
+
+
         <%= div_for supplier, :class => "suppliers_name" do %>
           <p><%= supplier.company %></p>
         <%end%>
@@ -41,21 +53,22 @@
         <p> <%= supplier.city %></p>
         <%end%>
         <%= div_for supplier, :class => "suppliers_recruitment_price" do %>
-          <p><%= supplier.recruitment_percentage.to_i.floor%>% </p>
+          <p><%= supplier.recruitment_percentage.to_i.floor * @salary_multiplied_by_months.floor / 100%></p>
         <%end%>
         <%= div_for supplier, :class => "suppliers_id" do %>
-          <p hidden="hidden"><%=  supplier.id%></p>
-        <%end%>
+          <p hidden><%=  supplier.id.to_i%></p>
 
+        <%end%>
       <% if @assitance == "it" %>
         <%= div_for supplier, :class => "suppliers_price" do %>
-        <p>  <%= supplier.prices.map {|p| p.it.to_f * @salary_divided_by_hours.floor}.join("','") %> </p>
-          <%= submit_tag 'choose supplier', class: 'välj_leverator'%>
+        <p>  <%= supplier.prices.map {|p| p.it.to_f.floor * @salary_divided_by_hours.floor}.join("','") %> </p>
+          <%= submit_tag 'Välj Leverantör', class: 'välj_leverator'%>
         <%end%>
       <% elsif @assitance == "marketing" %>
         <%= div_for supplier, :class => "suppliers_price" do %>
-          <p><%= supplier.prices.map {|p| p.marketing.to_f}.join("','") %></p>
-            <%= submit_tag 'choose supplier', class: 'välj_leverator'%>
+        <p>  <%= supplier.prices.map {|p| p.marketing.to_f.floor * @salary_divided_by_hours.floor}.join("','") %> </p>
+            <%= submit_tag 'Välj Leverantör', class: 'välj_leverator'%>
+
           <%end%>
             <!-- KEEEP AND UPDATE #elseif   #@assitance == -->
           <%end%>
@@ -78,7 +91,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Order Confirmation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -92,7 +105,7 @@
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
       <div class="modal-footer">
-        <p>Please speciy if you would like to Rent or Recruit staff</p>
+        <p>Vänligen välj om du vill rekrytera eller hyra in personal</p>
         <select class="rent_or_recruit" name="rent_or_recruit">
           <option value="Rent">Rent</option>
           <option value="Recruit">Recruit</option>

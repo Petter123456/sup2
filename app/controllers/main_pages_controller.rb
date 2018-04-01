@@ -29,6 +29,8 @@ class MainPagesController < ApplicationController
     @assitance = params[:assitance].downcase rescue nil
 
     @salary_divided_by_hours = params[:salary].to_f / 162.5
+    @salary_multiplied_by_months = params[:salary].to_f * 12.floor
+
   end
 
   def confirm_order_and_email
