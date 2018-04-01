@@ -57,6 +57,7 @@
         <%end%>
         <%= div_for supplier, :class => "suppliers_id" do %>
           <p hidden><%=  supplier.id.to_i%></p>
+
         <%end%>
       <% if @assitance == "it" %>
         <%= div_for supplier, :class => "suppliers_price" do %>
@@ -97,6 +98,8 @@
       </div>
       <div class="modal-body">
 
+
+
       </div>
       <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -107,9 +110,7 @@
           <option value="Rent">Rent</option>
           <option value="Recruit">Recruit</option>
         </select>
-
         <button type="button" class="btn btn-secondary confirm_order" data-dismiss="modal">confirm</button>
-
       </div>
     </div>
   </div>

@@ -24,10 +24,17 @@
       <% if current_user %>
       Welcome <%= current_user.name %> | <%= link_to "logout", '/logout' %>
       <% else %>
-      <%= link_to "Login", '/login' %> | <%= link_to "Sign-up", '/signup' %>
+      <%= link_to "Login", '/login' %> | <%= link_to "Sign-up", '/signup' %> | <%= link_to "Back to main page", 'page1' %>
       <% end %>
     </div>
+
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+
     <%= yield %>
+
     <%= console %>
+
   </body>
 </html>

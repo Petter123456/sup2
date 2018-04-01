@@ -1,5 +1,5 @@
 class MainPagesController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :check_for_current_user, only: [:confirm_order_and_email]
 
   def index
   end
@@ -35,32 +35,26 @@ class MainPagesController < ApplicationController
 
   def confirm_order_and_email
 
+
+
+    contract = Contract.new(main_params)
     # creating contracts generated through strong params which is populated from tasks.js deepending on user selection
-    Contract.create(main_params)
+    if contract.save then
+      # Email functions with corresponding user, supplier and admin - same email is sendt to all.
+      @admin = "petter.fagerlund@gmail.com"
+      @user = User.find(session[:user_id])
+      @supplier = Supplier.find(params[:contracts][:supplier_id])
+      @contract = Contract.last
+      #Sends confirmation email to admin, supplier and user
+      ConfirmationMailer.confirmation_email(@user).deliver_now
+      ConfirmationMailer.admin_order_confirmation(@admin, @supplier, @user, @contract).deliver_now
+      ConfirmationMailer.confirmation_email_supplier(@supplier, @user, @contract).deliver_now
 
-
-    # Email functions with corresponding user, supplier and admin - same email is sendt to all.
-    @admin = "petter.fagerlund@gmail.com"
-    @user = User.find(session[:user_id])
-    @supplier = Supplier.find(params[:contracts][:supplier_id])
-    @contract = Contract.last
-
-    ConfirmationMailer.confirmation_email(@user).deliver_now
-    ConfirmationMailer.admin_order_confirmation(@admin, @supplier, @user, @contract).deliver_now
-    ConfirmationMailer.confirmation_email_supplier(@supplier, @user, @contract).deliver_now
-
+      render page1_path
+    end
   end
 
   def create
-  end
-
-  def new
-  end
-
-  def show
-  end
-
-  def delete
   end
 
   private
@@ -85,4 +79,10 @@ class MainPagesController < ApplicationController
       )
     end
 
+    def check_for_current_user
+      unless current_user.present?
+        flash[:error] = "Please logg in or sign up to place an order"
+        redirect_to '/login'
+      end
+    end
 end
